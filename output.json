@@ -1,0 +1,32 @@
+{
+    "offers": [
+        {
+            "id": 574837,
+            "title": "Offer 167820",
+            "description": "Offer 682870 description",
+            "category": 4,
+            "merchants": [
+                {
+                    "id": 163234,
+                    "name": "Merchant32641",
+                    "distance": 0.00000189855573623607
+                }
+            ],
+            "valid_to": "2024-03-28"
+        },
+        {
+            "id": 458416,
+            "title": "Offer 588946",
+            "description": "Offer 504181 description",
+            "category": 2,
+            "merchants": [
+                {
+                    "id": 418710,
+                    "name": "Merchant33300",
+                    "distance": 0.000003455208138953853
+                }
+            ],
+            "valid_to": "2024-10-10"
+        }
+    ]
+}
