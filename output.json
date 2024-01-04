@@ -1,32 +1,46 @@
 {
     "offers": [
         {
-            "id": 574837,
-            "title": "Offer 167820",
-            "description": "Offer 682870 description",
-            "category": 4,
+            "id": 1,
+            "title": "Offer 1",
+            "description": "Offer 1 description",
+            "category": 1,
             "merchants": [
                 {
-                    "id": 163234,
-                    "name": "Merchant32641",
-                    "distance": 0.00000189855573623607
+                    "id": 1,
+                    "name": "Offer1 Merchant1",
+                    "distance": 0.5
                 }
             ],
-            "valid_to": "2024-03-28"
+            "valid_to": "2020-02-01"
         },
         {
-            "id": 458416,
-            "title": "Offer 588946",
-            "description": "Offer 504181 description",
+            "id": 3,
+            "title": "Offer 3",
+            "description": "Offer 3 description",
             "category": 2,
             "merchants": [
                 {
-                    "id": 418710,
-                    "name": "Merchant33300",
-                    "distance": 0.000003455208138953853
+                    "id": 3,
+                    "name": "Offer3 Merchant1",
+                    "distance": 0.8
                 }
             ],
-            "valid_to": "2024-10-10"
+            "valid_to": "2020-01-01"
+        },
+        {
+            "id": 5,
+            "title": "Offer 5",
+            "description": "Offer 5 description",
+            "category": 4,
+            "merchants": [
+                {
+                    "id": 6,
+                    "name": "Offer5 Merchant1",
+                    "distance": 1.2
+                }
+            ],
+            "valid_to": "2020-05-01"
         }
     ]
 }

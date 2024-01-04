@@ -13,12 +13,13 @@ type IOrderFilter interface {
 
 // template method
 type OfferFilter struct {
-	IOderFilter           IOrderFilter
-	MaxDate               int
-	OffersData            []dto.Offer `json:"offers"`
-	InputFileName         string
-	OutputFileName        string
-	NotEligibleCategories map[int]bool
+	IOderFilter        IOrderFilter
+	MaxDate            int
+	OffersData         []dto.Offer `json:"offers"`
+	InputFileName      string
+	OutputFileName     string
+	EligibleCategories map[int]bool
+	NumberOffer        int
 }
 
 // Functional Option Pattern
@@ -30,10 +31,16 @@ func WithMaxDate(maxDate int) func(*OfferFilter) {
 	}
 }
 
-func WithNotEligibleCategories(values ...string) func(*OfferFilter) {
+func WithNumberOffer(number int) func(*OfferFilter) {
+	return func(of *OfferFilter) {
+		of.NumberOffer = number
+	}
+}
+
+func WithEligibleCategories(values ...string) func(*OfferFilter) {
 	return func(of *OfferFilter) {
 		for _, value := range values {
-			of.NotEligibleCategories[constant.CategoryMappingId[value]] = true
+			of.EligibleCategories[constant.CategoryMappingId[value]] = true
 		}
 	}
 }
@@ -52,10 +59,10 @@ func WithOutputFileName(fileName string) func(*OfferFilter) {
 
 func NewOfferFilter(opts ...OfferFilterOption) *OfferFilter {
 	c := &OfferFilter{
-		MaxDate:               5,
-		InputFileName:         "input",
-		OutputFileName:        "output",
-		NotEligibleCategories: map[int]bool{},
+		MaxDate:            5,
+		InputFileName:      "input",
+		OutputFileName:     "output",
+		EligibleCategories: map[int]bool{},
 	}
 	for _, opt := range opts {
 		opt(c)

@@ -10,7 +10,8 @@ func main() {
 		offer.WithInputFileName("input"),
 		offer.WithOutputFileName("output"),
 		offer.WithMaxDate(5),
-		offer.WithNotEligibleCategories("Hotel"),
+		offer.WithEligibleCategories("Activity", "Restaurant", "Retail"),
+		offer.WithNumberOffer(3),
 	)
 	offerFilter.IOderFilter = &offer.OfferFilterJSON{
 		OfferFilter: offerFilter,

@@ -75,20 +75,33 @@ func (of *OfferFilterJSON) filter(checkinDate string) (*dto.OffersData, error) {
 		}
 
 		//case category is not eligible
-		if of.NotEligibleCategories[offer.Category] {
+		if _, ok := of.EligibleCategories[offer.Category]; !ok {
+			// Swap the root of the min heap (arr[0]) with the last element of the unsorted array
 			continue
 		}
 
 		//case merchants have multiple elements
 		if len(offer.Merchants) > 1 {
-			maxMerchantIndex := 0
+			//maxMerchantIndex := 0
+			min, secondMin := 0, -1
 			for i, merchant := range offer.Merchants {
-				if merchant.Distance < offer.Merchants[maxMerchantIndex].Distance {
-					maxMerchantIndex = i
+				if merchant.Distance < offer.Merchants[min].Distance {
+					min = i
+				}
+			}
+			for i, merchant := range offer.Merchants {
+				if i != min {
+					secondMin = i
+				}
+				if secondMin != -1 && merchant.Distance < offer.Merchants[secondMin].Distance {
+					secondMin = i
 				}
 			}
 			offer.Merchants = []dto.Merchant{
-				offer.Merchants[maxMerchantIndex],
+				offer.Merchants[min],
+			}
+			if secondMin != -1 {
+				offer.Merchants = append(offer.Merchants, offer.Merchants[secondMin])
 			}
 		}
 
@@ -96,12 +109,12 @@ func (of *OfferFilterJSON) filter(checkinDate string) (*dto.OffersData, error) {
 
 	}
 
-	chosenOffers := heapSort2ClosestMerchant(filteredOffers.Offers)
+	chosenOffers := heapSort2ClosestMerchant(filteredOffers.Offers, of.NumberOffer)
 
 	return chosenOffers, nil
 }
 
-func heapSort2ClosestMerchant(offers []dto.Offer) *dto.OffersData {
+func heapSort2ClosestMerchant(offers []dto.Offer, numberOffer int) *dto.OffersData {
 	chosenOffers := &dto.OffersData{}
 	n := len(offers)
 
@@ -123,7 +136,7 @@ func heapSort2ClosestMerchant(offers []dto.Offer) *dto.OffersData {
 			chosenOffers.Offers = append(chosenOffers.Offers, offers[0])
 			categorySet[offers[0].Category] = true
 		}
-		if len(chosenOffers.Offers) == 2 {
+		if len(chosenOffers.Offers) == numberOffer {
 			break
 		}
 		offers[0], offers[i] = offers[i], offers[0]
